@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang=”ru”>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <a href="/db/upload/">Загрузка</a>
+        <a href="/db/select/">Выбор</a>
+        <a href="/db/stat/">Статистика</a>
+    </div>
+    <hr>
+	{% block content %}{% endblock %}
+	{% block footer %}
+	<p></p>
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Результаты загрузки{% endblock %}
+{% block content %}
+	<h1>Результаты загрузки</h1>
+    <table border="1">
+        <tr>
+            <th>Имя файла</th>
+            <th>Статус</th>
+            <th>Ошибки</th>
+        </tr>
+        {% for file in status.values %}
+            <tr>
+                <td>{{ file.name }}</td>
+                {% if  file.loaded == True %}
+                    <td>OK</td>
+                    <td> </td>
+                {% else %}
+                    <td>Ошибка</td>
+                    <td>
+                        <ul>
+                            {% for err in file.errors %}
+                                <li>{{ err }} </li>
+                            {% endfor %}
+                        </ul>
+                    </td> 
+                {% endif %}
+            </tr>
+        {% endfor %}
+	</table>
+{% endblock %}

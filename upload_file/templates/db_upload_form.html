@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Загрузка файла на сервер{% endblock %}
+{% block content %}
+	<h1>Выберете файл и загрузите его</h1>
+	{% if form.errors %}
+		<p style="color: red;">
+			Исправьте следующие ошибки.
+		</p>
+	{% endif %}
+
+	<form action="" enctype="multipart/form-data" method="post">
+		{% csrf_token %}	
+		<div class="field">
+			{{ form.title.errors }}
+			<label for="id_title">Заголовок:</label>
+			{{ form.title}}
+		</div>
+		<div class="field">
+			{{ form.file.errors }}
+			<label for="id_file">Выберите файл:</label>
+			{{ form.file }}
+		</div>
+		<input type="submit" value="Отправить">
+	</form>	
+{% endblock %}

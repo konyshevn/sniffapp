@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Загрузка файлов в базу{% endblock %}
+{% block content %}
+
+
+
+<script type="text/javascript">
+function checkboxes_sel_all(obj)
+  {
+  // Получаем NodeList дочерних элементов input формы:
+  var items = obj.form.getElementsByTagName("input"), len, i;
+ 
+  for (i = 0, len = items.length; i < len; i += 1)
+    {
+    // Если текущий элемент является чекбоксом
+    if (items.item(i).type && items.item(i).type === "checkbox")
+      {
+      if (obj.checked)
+        {
+        // Устанавливаем отметки всем чекбоксам
+        items.item(i).checked = true;
+        }
+      else
+        {
+        // Иначе снимаем отметки со всех чекбоксов:
+        items.item(i).checked = false;
+        }      
+      }
+    }
+  }
+</script>
+
+
+	<h1>Выберете файлы для загрузки в базу</h1>
+	{% if form.errors %}
+		<p style="color: red;">
+			Исправьте следующие ошибки.
+		</p>
+	{% endif %}
+
+	<form action="" method="post">
+		{% csrf_token %}	
+		<div class="field">
+			{{ form.selected_files.errors }}
+			<label for="id_file">Выберите файлы:</label><br><br>
+				<div>
+					<input type="checkbox" name="set" onclick="checkboxes_sel_all(this)"> Выделить/снять все
+				</div>
+			{{ form.selected_files }}
+		</div>
+
+		<input type="submit" value="Отправить">
+	</form>	
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+	<h1>Выберите условия поиска</h1>
+	{% if form.errors %}
+		<p style="color: red;">
+			Исправьте следующие ошибки.
+		</p>
+	{% endif %}
+
+	<form action="" method="post">
+		{% csrf_token %}	
+		<div class="field">
+			{{ form.src.errors }}
+			<label for="id_src">SRC:</label>
+			{{ form.src}}
+		</div>
+		<div class="field">
+			{{ form.dst.errors }}
+			<label for="id_dst">DST:</label>
+			{{ form.dst }}
+		</div>
+		<div class="field">
+			{{ form.date_from.errors }}
+			<label for="id_date_from">Дата начала:</label>
+			{{ form.date_from }}
+		</div>
+		<div class="field">
+			{{ form.date_until.errors }}
+			<label for="id_date_until">Дата окончания:</label>
+			{{ form.date_until }}
+		</div>
+		<div class="field">
+			{{ form.uid.errors }}
+			<label for="id_uid">Идентификатор:</label>
+			{{ form.uid }}
+		</div>
+		<input type="submit" value="Поиск">
+	</form>	
+
+	
+	{% for row in search_result %}
+		{% if forloop.first %}
+			<p>Результаты</p>
+			<table border="1">	
+				<tr>
+					<th>Источник</th>
+					<th>Получатель</th>
+					<th>Объем, МБ</th>
+				</tr>	
+		{% endif %}
+
+		<tr>
+			<td>{{ row.src }}</td>
+			<td>{{ row.dst }}</td>
+			<td>{{ row.traffic_size|floatformat:1 }}</td>
+		</tr>
+
+		{% if forloop.last %}
+			</table>			
+		{% endif %}
+
+	{% endfor %}
+{% endblock %}
